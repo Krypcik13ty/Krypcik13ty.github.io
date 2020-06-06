@@ -7,3 +7,6 @@ dart-sass-*/**
 *.json
 *.cmd
 *.txt
+watcherConfig.js
+PromotorNotes
+styleresult
