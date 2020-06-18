@@ -1,6 +1,7 @@
 .idea/**
 node_modules/**
 dart-sass-*/**
+.vs/**
 
 *.css
 *.css.map

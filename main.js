@@ -9,6 +9,7 @@ let init_y;
 let off_x = 0;
 let off_y = 0;
 
+
 let wnd = document.querySelector('div.window');
 /* FIXME: not working as intended */
 // let wnd_bar = document.querySelector('.title-bar');
@@ -45,6 +46,9 @@ texture.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmH
 //TODO: there is possibly a need for a texture creator constructor, however
 // there most likely will be only one texture atlas with fonts and
 // graphics / tiles which should be a power of 2 square
+
+
+
 
 texture.addEventListener('load',
         () => {
