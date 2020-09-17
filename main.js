@@ -1,6 +1,6 @@
 'use strict';
 import ShaderProgram from "./modules/ShaderProgram.mjs"
-let ver = "1.0.0";
+let ver = "1.0.1";
 
 /* -----------------------------WINDOW-DRAG---------------------------------- */
 let active = false;
@@ -41,8 +41,6 @@ wnd.addEventListener('mousemove',
         }, false);
 
 /* ---------------------------TEXTURE-LOAD----------------------------------- */
-const texture = new Image(64, 128);
-texture.src = 'data:image/png;base64,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';
 
 //TODO: there is possibly a need for a texture creator constructor, however
 // there most likely will be only one texture atlas with fonts and
@@ -106,7 +104,7 @@ const triangle_indices = new Uint16Array([
         0, 1, 3,  // first Triangle
         1, 2, 3   // second Triangle
 ]);
-export default {texture};
+
 /* ----------------------------WEBGL-INIT------------------------------------ */
 
 let test = new ShaderProgram(gl, f_source, v_source, triangle_vertices,  triangle_indices, texture_coordinates, texture);

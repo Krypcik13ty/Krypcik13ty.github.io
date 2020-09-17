@@ -1,4 +1,7 @@
 'use strict';
+const canvas = document.getElementById('webgl-canvas');
+let gl = canvas.getContext('webgl2');
+const texture_vbo = gl.createBuffer();
 export default class ShaderProgram {
     constructor(gl, f_source, v_source, triangle_vertices,  triangle_indices, texture_coordinates, texture) {
         this.texture_coordinates = texture_coordinates
@@ -6,7 +9,6 @@ export default class ShaderProgram {
         this.triangle_indices = triangle_indices;
         this.v_source = v_source;
         this.f_source = f_source;
-        this.gl = gl;
         this.texture = texture;
     }
 Shade = window.addEventListener('load', () => {
@@ -16,25 +18,25 @@ Shade = window.addEventListener('load', () => {
 
     this.texture.addEventListener('load',
         () => {
-            this.gl.enable(this.gl.BLEND);
-            this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         }, false);
 
-    const v_shader = this.gl.createShader(this.gl.VERTEX_SHADER);
-    this.gl.shaderSource(v_shader, this.v_source);
-    this.gl.compileShader(v_shader);
-    if (!this.gl.getShaderParameter(v_shader, this.gl.COMPILE_STATUS)) {
-        throw new Error(this.gl.getShaderInfoLog(v_shader));
+    const v_shader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(v_shader, v_source);
+    gl.compileShader(v_shader);
+    if (!gl.getShaderParameter(v_shader, gl.COMPILE_STATUS)) {
+        throw new Error(gl.getShaderInfoLog(v_shader));
     }
 
-    const f_shader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-    this.gl.shaderSource(f_shader, this.f_source);
-    this.gl.compileShader(f_shader);
+    const f_shader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(f_shader, f_source);
+    gl.compileShader(f_shader);
     if (!this.gl.getShaderParameter(v_shader, this.gl.COMPILE_STATUS)) {
         throw new Error(this.gl.getShaderInfoLog(f_shader));
     }
 
-    const s_program = this.gl.createProgram();
+
     this.gl.attachShader(s_program, v_shader);
     this.gl.attachShader(s_program, f_shader);
     this.gl.linkProgram(s_program);
@@ -56,7 +58,6 @@ Shade = window.addEventListener('load', () => {
     this.gl.enableVertexAttribArray(0);
     this.gl.vertexAttribPointer(0, 3, this.gl.FLOAT, false, 0, 0);
 
-    const texture_vbo = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, texture_vbo);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, this.texture_coordinates, this.gl.STATIC_DRAW);
     this.gl.enableVertexAttribArray(1);
