@@ -1,5 +1,6 @@
 'use strict';
 import ShaderProgram from "./modules/ShaderProgram.mjs"
+let ver = "1.0.0";
 
 /* -----------------------------WINDOW-DRAG---------------------------------- */
 let active = false;
