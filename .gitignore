@@ -6,7 +6,7 @@ dart-sass-*/**
 
 *.css
 *.css.map
-*.json
+*.json/package.json
 *.cmd
 *.txt
 watcherConfig.js
