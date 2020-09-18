@@ -1,0 +1,22 @@
+name: Dart CI
+
+on:
+  push:
+    branches: [ Experimental ]
+  pull_request:
+    branches: [ Experimental ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: pub get
+    - name: run dart command
+      run: dart ./dart-sass-1.26.5/bin/sass.dart main.css
