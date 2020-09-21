@@ -34,3 +34,8 @@ jobs:
       - name: Move compiled CSS to path within pr-pages branch
         run: mv -f /tmp/Experimental/assets/css .
 
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: Experimental
