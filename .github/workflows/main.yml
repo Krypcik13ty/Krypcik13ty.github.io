@@ -2,34 +2,62 @@
 
 name: CI
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the Experimental branch
 on:
   push:
-    branches: [ Experimental ]
-  pull_request:
-    branches: [ Experimental ]
+    branches:
+      - src-pages
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build_css:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Checkout source Git branch
+        uses: actions/checkout@v2
+        with:
+            ref: src-pages
+            fetch-depth: 10
+            submodules: true
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Make destination directory for compiled CSS
+        run: mkdir -vp /tmp/repo-name/assets/css
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Compile CSS from SCSS files
+        uses: gha-utilities/sass-build@v0.2.6
+        with:
+          source: _scss/main.scss
+          destination: /tmp/repo-name/assets/css/main.css
+
+      - name: Checkout destination Git branch
+        uses: actions/checkout@v2
+        with:
+            ref: pr-pages
+            fetch-depth: 1
+
+      - name: Move compiled CSS to path within pr-pages branch
+        run: mv /tmp/repo-name/assets/css assets/
+
+      - name: Add and Commit changes to pr-pages branch
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-      - name: Sass Build
-        uses: gha-utilities/sass-build@v0.2.5
+          git config --local user.email 'action@github.com'
+          git config --local user.name 'GitHub Action'
+          git add assets/css/*
+          git commit -m 'Updates compiled CSS files'
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: pr-pages
+
+      - name: Initialize Pull Request
+        uses: gha-utilities/init-pull-request@v0.0.4
+        with:
+          pull_request_token: ${{ secrets.GITHUB_TOKEN }}
+          head: pr-pages
+          base: gh-pages
+          title: 'Updates site files from latest Actions build'
+          body: >
+            Perhaps a multi-line description
+            about latest features and such.
