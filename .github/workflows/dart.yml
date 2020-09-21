@@ -16,7 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Get Sass
+      run: pub global activate sass
     - name: Install dependencies
       run: pub get
     - name: run dart command
-      run: dart ./dart-sass-1.26.5/bin/sass.dart main.css
+      run: dart ./dart-sass-*/bin/sass.dart main.css
