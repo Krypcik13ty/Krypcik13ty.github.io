@@ -32,8 +32,16 @@ jobs:
           destination: /tmp/Experimental/assets/css/main.css
 
       - name: Move compiled CSS to path within pr-pages branch
-        run: mv -f /tmp/Experimental/assets/css .
-
+        run: |
+            mv -f /tmp/Experimental/assets/css .
+            rm -rf /tmp/Experimental/assets/css
+      
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Add CSS" -a
+      
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
