@@ -26,7 +26,11 @@ jobs:
         uses: gha-utilities/sass-build@v0.2.6
         with:
           source: main.scss
-          destination: main.css          
+          destination: main.css
+          
+          
+      - name: Debug
+        run: ls -a          
       
       - name: Commit files
         run: |
