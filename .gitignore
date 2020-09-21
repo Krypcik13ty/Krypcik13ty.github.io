@@ -3,8 +3,6 @@ node_modules/**
 dart-sass-*/**
 .vs/**
 
-
-*.css
 *.css.map
 *.json/package.json
 *.cmd
