@@ -1,0 +1,12 @@
+.idea/**
+node_modules/**
+dart-sass-*/**
+.vs/**
+
+*.css.map
+*.json/package.json
+*.cmd
+*.txt
+watcherConfig.js
+PromotorNotes
+styleresult

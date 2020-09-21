@@ -1,0 +1,13 @@
+@forward 'reset';
+@forward 'windows-98';
+
+$print-vars  : ('root-fnt-size': 24px,
+  'bckgrnd-col-chrome': exact
+) !default;
+
+$custom-cols : ('red': rgb(255, 0, 0),
+  'black': rgb(0, 0, 0),
+  'white': rgb(255, 255, 255),
+  'aqua': rgb(0, 255, 255),
+  'indianred': rgb(205, 92, 92),
+) !default;

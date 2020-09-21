@@ -1,0 +1,39 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+
+@function get($map, $key) {
+  $type1 : meta.type-of($map);
+  $type2 : meta.type-of($key);
+  $result : null;
+  @if $type1 == 'map' and $type2 == 'string' {
+    $temp : map.get($map, $key);
+    @if not $temp {
+      @error 'The map could not find the value under the "#{$key}" key!';
+    }
+    $result : $temp;
+  } @else if $type1 == 'list' and $type2 == 'number' {
+    $temp : list.nth($map, $key);
+    @if not $temp {
+      @error 'The list could not find the value under the "#{$key}" index!';
+    }
+    $result : $temp;
+  } @else {
+    @error 'Misspelled at least one of the argument\'s name!';
+  }
+  @return $result;
+}
+
+// @viewport {
+//        orientation: landscape;
+//        zoom: 1;
+//        max-zoom: 1;
+//        min-zoom: 1;
+//        width: 1280px;
+//        height: 720px;
+//        min-width: 1280px;
+//        min-height: 720px;
+//        max-width: 1280px;
+//        max-height: 720px;
+//        user-zoom: fixed;
+// }
