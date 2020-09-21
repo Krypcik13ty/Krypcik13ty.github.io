@@ -22,19 +22,11 @@ jobs:
             fetch-depth: 10
             submodules: true
 
-      - name: Make destination directory for compiled CSS
-        run: mkdir -vp /tmp/Experimental/assets/css
-
       - name: Compile CSS from SCSS files
         uses: gha-utilities/sass-build@v0.2.6
         with:
           source: main.scss
-          destination: /tmp/Experimental/assets/css/main.css
-
-      - name: Move compiled CSS to path within pr-pages branch
-        run: |
-            mv -f /tmp/Experimental/assets/css .
-            rm -rf /tmp/Experimental/assets/css
+          destination: main.css          
       
       - name: Commit files
         run: |
