@@ -4,8 +4,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - src-pages
+    branches: [ Experimental ]
 
 
 jobs:
