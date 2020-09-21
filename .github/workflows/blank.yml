@@ -51,14 +51,14 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: pr-pages
+          branch: Experimental
 
       - name: Initialize Pull Request
         uses: gha-utilities/init-pull-request@v0.0.4
         with:
           pull_request_token: ${{ secrets.GITHUB_TOKEN }}
-          head: pr-pages
-          base: gh-pages
+          head: Experimental
+          base: Experimental
           title: 'Updates site files from latest Actions build'
           body: >
             Perhaps a multi-line description
