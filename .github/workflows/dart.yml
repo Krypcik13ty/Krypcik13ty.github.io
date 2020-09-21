@@ -18,10 +18,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Get Sass
       run: pub global activate sass
-              import 'package:sass/sass.dart' as sass;
-
-              void main(List<String> args) {
-              print(sass.compile(args.first));
-              }
     - name: Install dependencies
       run: pub get;
+    - name: Run SASS
+      run: sass ./main.scss ./main.css
